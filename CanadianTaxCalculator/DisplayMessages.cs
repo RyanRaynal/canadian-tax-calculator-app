@@ -25,5 +25,17 @@ namespace CanadianTaxCalculator
             Console.WriteLine("******************** Thank you for having used Canadian Tax Calculator *******************");
             Console.WriteLine("******************************************************************************************");
         }
+        public static void ErrorMessageInvalidNumber()
+        {
+            Console.WriteLine("Please enter a valid number!");
+        }
+        public static void ErrorMessageInvalidNumericalValue()
+        {
+            Console.WriteLine("Please enter a numerical value!");
+        }
+        public static void ErrorMessageInvalidWord()
+        {
+            Console.WriteLine("Please enter a valid word!");
+        }
     }
 }

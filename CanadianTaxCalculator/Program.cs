@@ -1,67 +1,81 @@
 ﻿using CanadianTaxCalculator;
 
-int choice = GrossOrNetChoice.GrossOrNetChoiceAnswer();
-
-if (choice == 1)
+string continueOrNot = "";
+DisplayMessages.WelcomeMessage();
+do
 {
 
-    double annualSalary = InformationGathering.AnnualSalary();
-    double age = InformationGathering.Age();
-    string provinceOfEmployment = InformationGathering.ProvinceOfEmployment();
-    double grossAmount = InformationGathering.GrossAmount();
+    int choice = GrossOrNetChoice.GrossOrNetChoiceAnswer();
 
-    Console.WriteLine(" ");
-    Console.WriteLine($"Gross Amount = ${grossAmount}");
-
-    double cppOutput = Cpp.CppAmount(age, grossAmount);
-    Console.WriteLine($"CPP = ${cppOutput}");
-
-    double eiOutput = Ei.EiAmount(age, grossAmount);
-    Console.WriteLine($"EI = ${eiOutput}");
-
-    double federalTax = FederalTax.FederalTaxAmount(annualSalary, grossAmount);
-    Console.WriteLine($"Federal Tax = ${federalTax}");
-
-    if (provinceOfEmployment.ToLower() == "quebec")
+    if (choice == 1)
     {
-        double provincialTax = ProvincialTax.ProvincialTaxAmount(annualSalary, grossAmount);
-        Console.WriteLine($"Provincial Tax = ${provincialTax}");
 
-        double qpip = Qpip.QpipAmount(grossAmount);
-        Console.WriteLine($"QPIP = ${qpip}");
+        double annualSalary = InformationGathering.AnnualSalary();
+        double age = InformationGathering.Age();
+        string provinceOfEmployment = InformationGathering.ProvinceOfEmployment();
+        double grossAmount = InformationGathering.GrossAmount();
 
-        double netAmount = grossAmount - (cppOutput + eiOutput + federalTax + provincialTax + qpip);
-        netAmount = (double)Math.Round(netAmount, 2);
-        Console.WriteLine($"Net Amount = ${netAmount}");
+        Console.WriteLine(" ");
+        Console.WriteLine($"Gross Amount = ${grossAmount}");
+
+        double cppOutput = Cpp.CppAmount(age, grossAmount);
+        Console.WriteLine($"CPP = ${cppOutput}");
+
+        double eiOutput = Ei.EiAmount(age, grossAmount);
+        Console.WriteLine($"EI = ${eiOutput}");
+
+        double federalTax = FederalTax.FederalTaxAmount(annualSalary, grossAmount);
+        Console.WriteLine($"Federal Tax = ${federalTax}");
+
+        if (provinceOfEmployment.ToLower() == "quebec")
+        {
+            double provincialTax = ProvincialTax.ProvincialTaxAmount(annualSalary, grossAmount);
+            Console.WriteLine($"Provincial Tax = ${provincialTax}");
+
+            double qpip = Qpip.QpipAmount(grossAmount);
+            Console.WriteLine($"QPIP = ${qpip}");
+
+            double netAmount = grossAmount - (cppOutput + eiOutput + federalTax + provincialTax + qpip);
+            netAmount = (double)Math.Round(netAmount, 2);
+            Console.WriteLine($"Net Amount = ${netAmount}");
+        }
+        else
+        {
+            double netAmount = grossAmount - (cppOutput + eiOutput + federalTax);
+            netAmount = (double)Math.Round(netAmount, 2);
+            Console.WriteLine($"Net Amount = ${netAmount}");
+        }
     }
-    else
+    else if (choice == 2)
     {
-        double netAmount = grossAmount - (cppOutput + eiOutput + federalTax);
-        netAmount = (double)Math.Round(netAmount, 2);
-        Console.WriteLine($"Net Amount = ${netAmount}");
+        double netAmount = InformationGathering.NetAmount();
+
+        double annualSalary = InformationGathering.AnnualSalary();
+        double age = InformationGathering.Age();
+        string provinceOfEmployment = InformationGathering.ProvinceOfEmployment();
+
+        if (provinceOfEmployment.ToLower() != "quebec")
+        {
+            double output = NetToGrossCalculator.NetToGrossOutsideQuebec(age, annualSalary, netAmount);
+            Console.WriteLine($"Gross Amount = ${output}");
+        }
+        else if (provinceOfEmployment.ToLower() == "quebec")
+        {
+            double output = NetToGrossCalculator.NetToGrossQuebec(age, annualSalary, netAmount);
+            Console.WriteLine($"Gross Amount = ${output}");
+        }
+
     }
-}
-else if (choice == 2)
-{
-    double netAmount = InformationGathering.NetAmount();
+    continueOrNot = InformationGathering.ContinueOrNot();
 
-    double annualSalary = InformationGathering.AnnualSalary();
-    double age = InformationGathering.Age();
-    string provinceOfEmployment = InformationGathering.ProvinceOfEmployment();
-
-    if (provinceOfEmployment.ToLower() != "quebec")
+    if (continueOrNot.ToLower() == "no")
     {
-        double output = NetToGrossCalculator.NetToGrossOutsideQuebec(age, annualSalary, netAmount);
-        Console.WriteLine($"Gross Amouunt = ${output}");
+        DisplayMessages.GoodbyeMessage();
     }
-    else if (provinceOfEmployment.ToLower() == "quebec")
-    {
-       double output = NetToGrossCalculator.NetToGrossQuebec(age,annualSalary, netAmount);
-        Console.WriteLine($"Gross Amount = ${output}");
-    }
+} while (continueOrNot.ToLower() == "yes");
 
-}
-DisplayMessages.GoodbyeMessage();
+
+
 
 
 

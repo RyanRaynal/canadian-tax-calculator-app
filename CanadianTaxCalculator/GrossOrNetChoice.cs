@@ -16,7 +16,7 @@ namespace CanadianTaxCalculator
             {
                 try
                 {
-                    DisplayMessages.WelcomeMessage();
+                    
                     Console.Write("Press 1 to calculate Source Deductions and 2 to calculate Net to Gross amounts: ");
 
                     string grossOrNetChoiceText = Console.ReadLine();

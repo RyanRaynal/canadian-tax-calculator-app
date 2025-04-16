@@ -22,12 +22,12 @@ namespace CanadianTaxCalculator
                     annualSalary = double.Parse(annualSalaryText);
                     if (annualSalary < 1000)
                     {
-                        Console.WriteLine("Please enter a valid number!");
+                        DisplayMessages.ErrorMessageInvalidNumber();
                     }
                 }
                 catch(Exception)
                 {
-                    Console.WriteLine("Please enter a valid numerical value!");
+                    DisplayMessages.ErrorMessageInvalidNumericalValue();
                 }
             }while (annualSalary < 1000);
             return annualSalary;
@@ -50,7 +50,7 @@ namespace CanadianTaxCalculator
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a valid numerical value!");
+                    DisplayMessages.ErrorMessageInvalidNumericalValue();
                 }
 
             } while (age < 14);
@@ -73,7 +73,7 @@ namespace CanadianTaxCalculator
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a valid word!");
+                    DisplayMessages.ErrorMessageInvalidWord(); 
                 }
             } while (provinceOfEmployment.ToLower() == "mauritius");
             return provinceOfEmployment;
@@ -93,12 +93,12 @@ namespace CanadianTaxCalculator
 
                     if (grossAmount < 10)
                     {
-                        Console.WriteLine("Please enter a valid number!");
+                        DisplayMessages.ErrorMessageInvalidNumber();
                     }
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Please enter a valid numerical value!");
+                    DisplayMessages.ErrorMessageInvalidNumericalValue(); 
                 }
             }while (grossAmount < 10);
             return grossAmount;
@@ -116,15 +116,24 @@ namespace CanadianTaxCalculator
 
                     if (netAmount < 10)
                     {
-                        Console.WriteLine("Please enter a valid number!");
+                        DisplayMessages.ErrorMessageInvalidNumber(); 
                     }
                 }
                 catch(Exception)
                 {
-                    Console.WriteLine("Please enter a valid numerical value!");
+                    DisplayMessages.ErrorMessageInvalidNumericalValue();
                 }
             } while (netAmount < 10);
             return netAmount;
+        }
+        public static string ContinueOrNot()
+        {
+            Console.WriteLine(" ");
+            Console.Write("Do you wish to continue(Type Yes to Continue or No to Exit): ");
+            string continueOrNot = Console.ReadLine();
+
+            return continueOrNot;
+
         }
     }
 }
