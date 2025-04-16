@@ -103,5 +103,28 @@ namespace CanadianTaxCalculator
             }while (grossAmount < 10);
             return grossAmount;
         }
+        public static double NetAmount()
+        {
+            double netAmount = 0;
+            do
+            {
+                try
+                {
+                    Console.Write("What is the net amount payable?: ");
+                    string netAmountText = Console.ReadLine();
+                    netAmount = double.Parse(netAmountText);
+
+                    if (netAmount < 10)
+                    {
+                        Console.WriteLine("Please enter a valid number!");
+                    }
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine("Please enter a valid numerical value!");
+                }
+            } while (netAmount < 10);
+            return netAmount;
+        }
     }
 }
