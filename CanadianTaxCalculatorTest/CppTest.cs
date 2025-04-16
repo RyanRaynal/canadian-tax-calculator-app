@@ -9,32 +9,22 @@ namespace CanadianTaxCalculatorTest
 {
     public static class CppTest
     {
-        [Fact]
-        public static void CppRegularShouldReturnDouble()
+        [Theory]
+        [InlineData(19,35000,2082.5)]//Adult, regular input
+        [InlineData(72,35000,0)]//Retired, overaged input
+        public static void CppShouldReturnDoubleBasedOnAge(double age, double grossAmount,double expected)
         {
             //Arrange
-            double expectedRegular = 2082.5;
+            
 
             //Act
-            double actualRegular = Cpp.CppAmount(19, 35000);
+            double actual = Cpp.CppAmount(age, grossAmount);
 
             //Assert
-            Assert.Equal(expectedRegular, actualRegular);
+            Assert.Equal(expected, actual);
 
         }
-        [Fact]
-        public static void CppRetiredShouldReturnDouble()
-        {
-            //Arrange
-            double expectedRetired = 0;
-
-            //Act
-            double actualRetired = Cpp.CppAmount(72, 35000);
-
-            //Assert
-            Assert.Equal(expectedRetired, actualRetired);
-
-        }
+        
     }
 }
     

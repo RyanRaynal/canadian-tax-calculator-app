@@ -9,71 +9,23 @@ namespace CanadianTaxCalculatorTest
 {
     public static class FederalTaxTest
     {
-        [Fact]
-        public static void FederalTaxFirstRateShouldReturnDouble()
+        [Theory]
+        [InlineData (50000,5000,750)]//First rate should return 15% of gross amount
+        [InlineData (75000, 5000, 1025)]//Second rate should return 20.5% of gross amount
+        [InlineData (150000, 5000, 1300)]//Third rate should return 26% of gross amount
+        [InlineData (200000, 5000, 1450)]//Fourth rate should return 29% of gross amount
+        [InlineData (275000, 5000, 1650)]//Fifth rate should return 33% of gross amount
+        public static void FederalTaxAllRatesShouldReturnDouble(double annualSalary, double grossAmount, double expected)
         {
             //Arrange
-            double expectedFirstRate = 750;
-            
-
+           
             //Act
-            double actualFirstRate =  FederalTax.FederalTaxAmount(50000, 5000);
+            double actual =  FederalTax.FederalTaxAmount(annualSalary, grossAmount);
 
             //Assert
-            Assert.Equal(expectedFirstRate, actualFirstRate);
+            Assert.Equal(expected, actual);
         }
-        [Fact]
-        public static void FederalTaxSecondRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedSecondRate = 1025;
-
-
-            //Act
-            double actualSecondRate = FederalTax.FederalTaxAmount(75000, 5000);
-
-            //Assert
-            Assert.Equal(expectedSecondRate, actualSecondRate);
-        }
-        [Fact]
-        public static void FederalTaxThirdRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedThirdRate = 1300;
-
-
-            //Act
-            double actualThirdRate = FederalTax.FederalTaxAmount(150000, 5000);
-
-            //Assert
-            Assert.Equal(expectedThirdRate, actualThirdRate);
-        }
-        [Fact]
-        public static void FederalTaxFourthRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedFourthRate = 1450;
-
-
-            //Act
-            double actualFourthRate = FederalTax.FederalTaxAmount(200000, 5000);
-
-            //Assert
-            Assert.Equal(expectedFourthRate, actualFourthRate);
-        }
-        [Fact]
-        public static void FederalTaxFifthRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedFifthRate = 1650;
-
-
-            //Act
-            double actualFifthRate = FederalTax.FederalTaxAmount(275000, 5000);
-
-            //Assert
-            Assert.Equal(expectedFifthRate, actualFifthRate);
-        }
+        
 
 
     }

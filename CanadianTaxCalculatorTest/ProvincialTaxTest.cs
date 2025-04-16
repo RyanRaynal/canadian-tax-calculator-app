@@ -9,57 +9,23 @@ namespace CanadianTaxCalculatorTest
 {
     public static class ProvincialTaxTest
     {
-        [Fact]
-        public static void ProvincialTaxFirstRateShouldReturnDouble()
+        [Theory]
+        [InlineData (50000,5000,700)]//First rate should return 14% of the gross amount
+        [InlineData (75000, 5000, 950)]//Second rate should return 19% of the gross amount
+        [InlineData (115000, 5000, 1200)]//Third rate should return 24% of the gross amount
+        [InlineData (140000, 5000, 1287.5)]//Fourth rate should return 25.75% of the gross amount
+
+        public static void ProvincialTaxAllRatesShouldReturnDouble(double annualSalary, double grossAmount, double expected)
         {
             //Arrange
-            double expectedFirstRate = 700;
 
             //Act
-            double actualFirstRate = ProvincialTax.ProvincialTaxAmount(50000, 5000);
+            double actual = ProvincialTax.ProvincialTaxAmount(annualSalary, grossAmount);
 
             //Assert
-            Assert.Equal(expectedFirstRate, actualFirstRate);
+            Assert.Equal(expected, actual);
 
         }
-        [Fact]
-        public static void ProvincialTaxSecondRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedSecondRate = 950;
-
-            //Act
-            double actualSecondRate = ProvincialTax.ProvincialTaxAmount(75000, 5000);
-
-            //Assert
-            Assert.Equal(expectedSecondRate, actualSecondRate);
-
-        }
-        [Fact]
-        public static void ProvincialTaxThirdRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedThirdRate = 1200;
-
-            //Act
-            double actualThirdRate = ProvincialTax.ProvincialTaxAmount(115000, 5000);
-
-            //Assert
-            Assert.Equal(expectedThirdRate, actualThirdRate);
-
-        }
-        [Fact]
-        public static void ProvincialTaxFourthRateShouldReturnDouble()
-        {
-            //Arrange
-            double expectedFourthRate = 1287.5 ;
-
-            //Act
-            double actualFourthRate = ProvincialTax.ProvincialTaxAmount(140000, 5000);
-
-            //Assert
-            Assert.Equal(expectedFourthRate, actualFourthRate);
-
-        }
+        
     }
 }

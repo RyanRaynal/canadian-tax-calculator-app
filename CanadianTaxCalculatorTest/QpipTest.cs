@@ -9,14 +9,14 @@ namespace CanadianTaxCalculatorTest
 {
     public static class QpipTest
     {
-        [Fact]
-        public static void QpipShouldReturnDouble()
+        [Theory]
+        [InlineData (5000,24.7)]//Should return 0.494% of the gross amount
+        public static void QpipShouldReturnDouble(double grossAmount, double expected)
         {
             //Arrange
-            double expected = 24.7;
 
             //Act
-            double actual = Qpip.QpipAmount(5000);
+            double actual = Qpip.QpipAmount(grossAmount);
             //Assert
             Assert.Equal(expected, actual);
 

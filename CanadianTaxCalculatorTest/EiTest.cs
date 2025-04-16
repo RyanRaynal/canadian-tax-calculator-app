@@ -3,41 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using CanadianTaxCalculator;
 
 namespace CanadianTaxCalculatorTest
 {
     public static class EiTest
     {
-        [Fact]
-        public static void EiAdultShouldReturnDouble()
+        [Theory]
+        [InlineData(19,35000,574)]//Adult age input
+        [InlineData(16,35000,0)]//Minor age input
+        public static void EiShouldReturnDoubleBasedOnAge(double age, double grossAmount, double expected)
         {
             //Arrange
-            double expectedAdult = 574;
-
 
             //Act
-            double actualAdult = Ei.EiAmount(19,35000);
+            double actualAdult = Ei.EiAmount(age, grossAmount);
 
             //Assert
-            Assert.Equal(expectedAdult, actualAdult);
-
-            
+            Assert.Equal(expected, actualAdult);   
         }
-        [Fact]
-        public static void EiMinorShouldReturnDouble()
-        {
-            //Arrange
-            double expectedMinor = 0;
-
-
-            //Act
-            double actualMinor = Ei.EiAmount(16, 35000);
-
-            //Assert
-            Assert.Equal(expectedMinor, actualMinor);
-
-
-        }
+       
     }
 }
